@@ -1,0 +1,21 @@
+{
+    "name": "yalantis-secret-santa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Max Koldun",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.1",
+        "express": "^4.17.2",
+        "livr": "^2.3.3",
+        "sequelize": "^6.14.0",
+        "sqlite3": "^5.0.2"
+    },
+    "devDependencies": {
+        "sequelize-cli": "^6.4.1"
+    }
+}
