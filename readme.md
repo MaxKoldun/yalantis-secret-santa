@@ -13,22 +13,40 @@ Ubuntu 20.04
 
 API the app supports:
 
-1. Game // I created this entitie more for testing purposes to avoid drop database everytime I need to test shuffling
+```js
+   // I created this entitie more for testing purposes to avoid drop database everytime I need to test shuffling
+```
+1. Game
 
-GET /api/games
-BODY : { name: [ 'string', 'required' ] }
+GET: **/api/games**
 
-2. Users // Participants of the secret santa game. Should be at least 3 but not more than 500 per the game.
+BODY : 
+```js
+{ name: [ 'string', 'required' ] }
+```
 
-POST /api/users
-BODY : {
-first : [ 'required', 'string', { 'max_length': 255 } ],
-last : [ 'required', 'string', { 'max_length': 255 } ],
-game_id : [ 'required', 'positive_integer' ],
-wishes : [ 'required', { 'list_of_objects': [ { message: ['required','string'] } ] } ]
+2. Users
+
+POST: **/api/users**
+
+BODY : 
+```js
+{
+  first : [ 'required', 'string', { 'max_length': 255 } ],
+  last : [ 'required', 'string', { 'max_length': 255 } ],
+  game_id : [ 'required', 'positive_integer' ],
+  wishes : [ 'required', { 'list_of_objects': [ { message: ['required','string'] } ] } ]
 }
+```
 
-POST /api/users/shuffle
-BODY : { game_id : [ 'required', 'positive_integer' ] }
+---
 
-GET /api/users/santa/:user_id // Returns a user with his wishes that should receive a gift from the user with user_id
+POST: **/api/users/shuffle**
+
+BODY : 
+```js
+{ game_id : [ 'required', 'positive_integer' ] }
+```
+
+---
+GET: **/api/users/santa/:user_id**
