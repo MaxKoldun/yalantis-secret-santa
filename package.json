@@ -12,6 +12,7 @@
         "body-parser": "^1.19.1",
         "express": "^4.17.2",
         "livr": "^2.3.3",
+        "livr-extra-rules": "^1.2.1",
         "sequelize": "^6.14.0",
         "sqlite3": "^5.0.2"
     },

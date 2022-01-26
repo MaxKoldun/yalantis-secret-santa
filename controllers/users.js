@@ -33,18 +33,7 @@ const shuffleUsers = async (req, res) => {
             return res.status(403).send({ message: 'Should be 3 or more users to start the game' });
         }
 
-        let resultOfShuffling = shuffle(registeredUsers);
-        let shuffleBad = registeredUsers.some((user, index) => {
-            if (registeredUsers[index].id === resultOfShuffling[index].id) return true;
-        });
-
-        while (shuffleBad) {
-            resultOfShuffling = shuffle(registeredUsers);
-
-            shuffleBad = registeredUsers.some((user, index) => {
-                if (registeredUsers[index].id === resultOfShuffling[index].id) return true;
-            });
-        }
+        const resultOfShuffling = shuffle(registeredUsers);
 
         const shuffledUsers = await Promise.all(registeredUsers.map(async (user, index) => {
             const newUser = { ...user };
@@ -59,54 +48,6 @@ const shuffleUsers = async (req, res) => {
         res.send(shuffledUsers);
     } catch(err) {
         console.log('***There was an error shuffling users', JSON.stringify(err));
-
-        return res.send(err)
-    }
-}
-
-const createUser = async (req, res) => {
-    try {
-        const { first, last, game_id, wishes } = req.body;
-
-        if (!game_id) {
-            return res.status(403).send({ message: 'A game id is required to create a new user' });
-        }
-
-        if (!wishes || wishes.length === 0) {
-            return res.status(403).send({ message: 'A user should have at least one wish to take participation in a game' });
-        }
-
-        if (wishes.length > 10) {
-            return res.status(403).send({ message: 'A user can not have more than ten wishes' });
-        }
-
-        const registeredUsers = await db.User.findAll({
-            where: {
-                game_id: {
-                    [Op.eq]: game_id
-                }
-            }
-        });
-
-        if (registeredUsers.length === 500) {
-            return res.status(403).send({ message: 'Max user quantity is reached for this game, please create a new one' });
-        }
-
-        const newUser = await db.User.create(
-            {
-                first, 
-                last, 
-                game_id,
-                wishes: wishes
-            },
-            {
-                include: [ { as: 'wishes', model: db.Wish } ]
-            }
-        );
-    
-        res.send(newUser);
-    } catch(err) {
-        console.log('***There was an error creating a user', JSON.stringify(err));
 
         return res.send(err)
     }
@@ -127,7 +68,8 @@ const getSanta = async (req, res) => {
                 { 
                     model: db.User,
                     as: 'santaFor',
-                    include: [ { as: 'wishes', model: db.Wish } ]
+                    attributes: [ 'first', 'last' ],
+                    include: [ { as: 'wishes', model: db.Wish, attributes: [ 'message' ] } ]
                 } 
             ]
         });
@@ -145,7 +87,6 @@ const getSanta = async (req, res) => {
 }
 
 module.exports = {
-    createUser,
     shuffleUsers,
     getSanta
 }
