@@ -48,7 +48,7 @@ class UsersCreate {
                     first, 
                     last, 
                     game_id,
-                    wishes: wishes
+                    wishes
                 },
                 {
                     include: [ { as: 'wishes', model: db.Wish } ]
