@@ -1,7 +1,7 @@
 const { LIVR } = require('../registerValidationRules.js');
 const db = require('../../models');
 
-class UsersCreate {
+class GameCreate {
     static validationRules = {
         name : [ 'required', 'string' ]
     };
@@ -9,6 +9,14 @@ class UsersCreate {
     async execute(req, res) {
         try {
             const { name } = req.body;
+            const validator = new LIVR.Validator(GameCreate.validationRules);
+            validator.validate({ name });
+            if (validator.getErrors()) {
+                return res.status(422).send({ 
+                    message: 'Input parameters are not valid', 
+                    errors: validator.getErrors() 
+                });
+            }
             const newGame = await db.Game.create({ name });
 
             res.send(newGame);
@@ -20,4 +28,4 @@ class UsersCreate {
     }
 }
 
-module.exports = new UsersCreate()
+module.exports = new GameCreate()
