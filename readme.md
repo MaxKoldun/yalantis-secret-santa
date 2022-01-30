@@ -11,25 +11,38 @@ Ubuntu 20.04
 
 ---
 
+Starting the app:
+
+1. npm i
+2. npm run migrate // create only tables
+   2.1. npm run seed // create tables and fill them with wishes and users to test shuffling
+3. npm start
+4. Open http://localhost:3000/api-docs // swagger documentation with routes
+
 API the app supports:
 
 ```js
-   // I created this entitie more for testing purposes to avoid drop database everytime I need to test shuffling
+// I created this entitie more for testing purposes to avoid drop database everytime I need to test shuffling
 ```
+
 1. Game
 
 GET: **/api/games**
 
-BODY : 
+BODY :
+
 ```js
-{ name: [ 'string', 'required' ] }
+{
+  name: ["string", "required"];
+}
 ```
 
 2. Users
 
 POST: **/api/users**
 
-BODY : 
+BODY :
+
 ```js
 {
   first : [ 'required', 'string', { 'max_length': 255 } ],
@@ -43,10 +56,14 @@ BODY :
 
 POST: **/api/users/shuffle**
 
-BODY : 
+BODY :
+
 ```js
-{ game_id : [ 'required', 'positive_integer' ] }
+{
+  game_id: ["required", "positive_integer"];
+}
 ```
 
 ---
+
 GET: **/api/users/santa/:user_id**
