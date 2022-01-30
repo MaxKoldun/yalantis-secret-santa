@@ -1,0 +1,386 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Secret Santa App",
+        "description": "Test task for Yalantis Test Task",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Games",
+            "description": "API for games in the system"
+        },
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/games": {
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "description": "Create new game in system",
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "body",
+                        "description": "Game that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New game is created",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
+                    },
+                    "403": {
+                        "description": "Action is forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Forbidden"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFound"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessableEntity"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "403": {
+                        "description": "Action is forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Forbidden"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFound"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessableEntity"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/shuffle": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Shuffle users in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Shuffle users",
+                        "schema": {
+                            "$ref": "#/definitions/ShuffleUsers"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The user should make a gift for",
+                        "schema": {
+                            "$ref": "#/definitions/ShuffledUsers"
+                        }
+                    },
+                    "403": {
+                        "description": "Action is forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Forbidden"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFound"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessableEntity"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/santa/{user_id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of user that we want to find",
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns a user the user_id should make a gift",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user_id should be santa for:",
+                        "schema": {
+                            "$ref": "#/definitions/Santa"
+                        }
+                    },
+                    "403": {
+                        "description": "Action is forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/Forbidden"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFound"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/UnprocessableEntity"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Game": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "name": "New game 2022"
+            }
+        },
+        "User": {
+            "required": [
+                "first",
+                "last",
+                "game_id",
+                "wishes"
+            ],
+            "properties": {
+                "first": {
+                    "type": "string"
+                },
+                "last": {
+                    "type": "string"
+                },
+                "game_id": {
+                    "type": "integer"
+                },
+                "wishes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "example": {
+                "first": "John",
+                "last": "Doe",
+                "game_id": 1,
+                "wishes": [
+                    {
+                        "message": "Powerbank"
+                    },
+                    {
+                        "message": "Pen"
+                    },
+                    {
+                        "message": "Book"
+                    }
+                ]
+            }
+        },
+        "Users": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/User"
+            }
+        },
+        "Wish": {
+            "required": [
+                "message",
+                "user_id"
+            ],
+            "properties": {
+                "user_id": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ShuffleUsers": {
+            "required": [
+                "game_id"
+            ],
+            "properties": {
+                "game_id": {
+                    "type": "integer"
+                }
+            },
+            "example": {
+                "game_id": 1
+            }
+        },
+        "ShuffledUsers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "first": {
+                        "type": "string"
+                    },
+                    "last": {
+                        "type": "string"
+                    },
+                    "game_id": {
+                        "type": "integer"
+                    },
+                    "santa_for_id": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Forbidden": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "NotFound": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "UnprocessableEntity": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "errors": {
+                    "type": "array"
+                }
+            }
+        },
+        "Santa": {
+            "properties": {
+                "santaFor": {
+                    "type": "object",
+                    "properties": {
+                        "first": {
+                            "type": "string"
+                        },
+                        "last": {
+                            "type": "string"
+                        },
+                        "wishes": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
