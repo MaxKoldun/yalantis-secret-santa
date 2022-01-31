@@ -31,7 +31,7 @@ Ubuntu 20.04
 
 1. Game
 
-GET: **/api/games**
+POST: **/api/games**
 
 BODY :
 
