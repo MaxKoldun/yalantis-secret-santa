@@ -54,9 +54,12 @@ BODY :
 ```js
 {
   first : [ 'required', 'string', { 'max_length': 255 } ],
-  last : [ 'required', 'string', { 'max_length': 255 } ],
+  last :  [ 'required', 'string', { 'max_length': 255 } ],
   game_id : [ 'required', 'positive_integer' ],
-  wishes : [ 'required', { 'list_of_objects': [ { message: ['required','string'] } ] } ]
+  wishes : [ 'required',  
+      { 'list_length': [1, 10] },
+      { 'list_of_objects': [ { message: ['required','string'] } ] }
+  ]
 }
 ```
 
