@@ -7,6 +7,7 @@ node: 14.17.3
 sqlite3: 3.31.1
 
 sequelize-cli: 6.4.1
+
 nodemon: 2.0.12
 
 **Environment the project was created:**
@@ -22,8 +23,8 @@ Ubuntu 20.04
 
 3. *npm start*
 4. Open http://localhost:3000/api-docs // swagger documentation with routes
-5. Run tests npm run test
-6. Collect coverage npm run coverage
+5. *npm run test* to run tests 
+6. *npm run coverage* to collect coverage
 
 
 **API the app supports:**
