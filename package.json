@@ -4,11 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "nodemon server.js",
         "migrate": "npx sequelize-cli db:migrate",
         "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
         "seed": "npm run migrate:reset && npx sequelize-cli db:seed:all",
-        "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+        "test": "NODE_ENV=test jest --runInBand --timeout=100000",
         "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
         "coverage": "npm run pretest && jest --coverage && cat ./coverage/lcov.info | coveralls"
     },

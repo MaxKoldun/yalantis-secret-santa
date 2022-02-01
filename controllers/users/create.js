@@ -1,6 +1,8 @@
 const { LIVR } = require('../registerValidationRules.js');
 const db = require('../../models');
 const { Op } = require("sequelize");
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../../config/config.json')[env];
 
 class UsersCreate {
     static validationRules = {
@@ -39,7 +41,7 @@ class UsersCreate {
                 }
             });
     
-            if (registeredUsers.length === 500) {
+            if (registeredUsers.length === config.maxUsers) {
                 return res.status(403).send({ message: 'Max user quantity is reached for this game, please create a new one' });
             }
     

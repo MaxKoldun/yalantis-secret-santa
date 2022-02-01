@@ -4,6 +4,7 @@ npm: 6.14.13
 node: 14.17.3
 sqlite3: 3.31.1
 sequelize-cli: 6.4.1
+nodemon: 2.0.12
 
 Environment the project was created:
 
@@ -18,6 +19,8 @@ Starting the app:
    2.1. npm run seed // create tables and fill them with wishes and users to test shuffling
 3. npm start
 4. Open http://localhost:3000/api-docs // swagger documentation with routes
+5. Run tests npm run test
+6. Collect coverage npm run coverage
 
 API the app supports:
 

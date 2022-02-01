@@ -1,13 +1,20 @@
 {
     "development": {
+        "maxUsers": 500,
+        "minUsers": 3,
         "dialect": "sqlite",
         "storage": "./db/secret-santa.db"
     },
     "test": {
+        "logging": false,
+        "maxUsers": 500,
+        "minUsers": 3,
         "dialect": "sqlite",
         "storage": "./db/secret-santa-test.db"
     },
     "production": {
+        "maxUsers": 500,
+        "minUsers": 3,
         "dialect": "sqlite",
         "storage": "./db/secret-santa.db"
     }

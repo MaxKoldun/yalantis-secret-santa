@@ -35,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     first: DataTypes.STRING,
     last: DataTypes.STRING,
     santa_for_id: DataTypes.INTEGER,
-    game_id: DataTypes.INTEGER
+    game_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'User',

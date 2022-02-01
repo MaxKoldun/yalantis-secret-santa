@@ -2,6 +2,8 @@ const { LIVR } = require('../registerValidationRules.js');
 const db = require('../../models');
 const { Op } = require("sequelize");
 const { shuffle } = require('../../utils/array');
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../../config/config.json')[env];
 
 class UsersShuffle {
     static validationRules = {
@@ -39,7 +41,7 @@ class UsersShuffle {
                 }
             });
     
-            if (registeredUsers.length < 3) {
+            if (registeredUsers.length < config.minUsers) {
                 return res.status(403).send({ message: 'Should be 3 or more users to start the game' });
             }
     

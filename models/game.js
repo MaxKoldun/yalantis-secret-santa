@@ -17,7 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Game.init({
-    name: DataTypes.STRING
+    name: {
+        type: DataTypes.STRING,
+        unique: 'true',
+        allowNull: false
+    }
   }, {
     autoincrement: true,
     sequelize,
